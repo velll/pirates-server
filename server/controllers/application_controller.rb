@@ -14,7 +14,11 @@ class ApplicationController < Sinatra::Base
 
     game = GameRepo.create Game.for(fleet)
 
-    json game.attributes
+    model_to_json game
+  end
+
+  get '/game/:id' do
+    model_to_json GameRepo.find(params[:id])
   end
 
   post '/game/:game/player' do
@@ -22,9 +26,18 @@ class ApplicationController < Sinatra::Base
 
     raise Error, 'No such game' if game.nil?
 
+    # TODO: Save new player id to game when I start
+    # identifying players
+
     game.close
     GameRepo.close game.id
 
-    json game.attributes
+    model_to_json game
+  end
+
+  private
+
+  def model_to_json(model)
+    json model.attributes
   end
 end
