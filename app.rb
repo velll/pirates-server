@@ -17,6 +17,7 @@ require 'models'
 class ApplicationController < Sinatra::Base
   set :strict_paths, false
   set :show_exceptions, false
+  set :logging, true
 
   register Sinatra::ConfigFile
   config_file 'config.yml'
