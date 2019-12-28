@@ -23,6 +23,14 @@ class ApplicationController < Sinatra::Base
 
   Repo.connect Redis.new(host: settings.storage['host'],
                          port: settings.storage['port'])
+
+  error do
+    content_type :json
+    status 400 # or whatever
+
+    e = env['sinatra.error']
+    { message: e.message }.to_json
+  end
 end
 
 require 'controllers/application_controller'
