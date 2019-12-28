@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
 
     fleet = payload['fleet']
 
-    unless Fleet.options.include? fleet
+    unless Fleet.known? fleet
       raise ArgumentError, 'Unsupported fleet'
     end
 
