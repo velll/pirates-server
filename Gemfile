@@ -1,4 +1,12 @@
 source 'http://rubygems.org'
 
 gem 'sinatra'
-gem 'shotgun'
+
+group :development do
+  gem 'pry'
+  gem 'shotgun'
+end
+
+group :test do
+  gem 'rspec'
+end
