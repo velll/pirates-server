@@ -1,8 +1,14 @@
 class ApplicationController < Sinatra::Base
+  ##########
+  # Lobby
+  ##########
+
+  # List all open games
   get '/games' do
     json GameRepo.open_games.map(&:attributes)
   end
 
+  # Create new game
   post '/games' do
     payload = JSON.parse request.body.read
 
@@ -18,10 +24,7 @@ class ApplicationController < Sinatra::Base
     model_to_json game
   end
 
-  get '/game/:id' do
-    model_to_json GameRepo.find(params[:id])
-  end
-
+  # Add a new player to game (join)
   post '/game/:game/player' do
     game = GameRepo.find_open(params[:game])
 
@@ -36,6 +39,14 @@ class ApplicationController < Sinatra::Base
     model_to_json game
   end
 
+  ############
+  # GamePlay
+  ###########
+
+  # Get details about a given game
+  get '/game/:id' do
+    model_to_json GameRepo.find(params[:id])
+  end
   private
 
   def model_to_json(model)
