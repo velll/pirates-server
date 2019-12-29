@@ -1,7 +1,9 @@
 class Fleet
-  class << self
-    OPTIONS = %w[pirates spaniards]
+  PIRATES = 'pirates'
+  SPANIARDS = 'spaniards'
+  OPTIONS = [SPANIARDS, PIRATES]
 
+  class << self
     def enemy_of(fleet)
       OPTIONS.find { |f| f != fleet }
     end
