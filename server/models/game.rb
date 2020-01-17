@@ -7,8 +7,6 @@ class Game < Dry::Struct
   attribute :created_at, Types::Params::DateTime
   attribute :golden_ship, Types::Coercible::Integer
 
-  SPANISH_SHIPS = 3
-
   def self.for(fleet, golden_ship)
     id = SecureRandom.uuid
     new(id: id,
