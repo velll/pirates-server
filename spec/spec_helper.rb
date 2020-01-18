@@ -1,5 +1,4 @@
-# FIXME: or I won't be able to inject dependencies
-require_relative '../app.rb'
+require './models'
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
