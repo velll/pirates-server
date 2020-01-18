@@ -18,8 +18,7 @@ class ApplicationController < Sinatra::Base
       raise ArgumentError, 'Unsupported fleet'
     end
 
-    golden_ship = rand(Game::SPANISH_SHIPS)
-    game = GameRepo.create Game.for(fleet, golden_ship)
+    game = GameRepo.create Game.for(fleet, Ship.random_spanish.id)
 
     model_to_json game
   end

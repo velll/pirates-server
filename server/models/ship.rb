@@ -23,4 +23,8 @@ class Ship < Dry::Struct
   def self.find_active(turn_no)
     ALL[turn_no % ALL.size]
   end
+
+  def self.random_spanish
+    ALL[rand(Ship::SPANISH)]
+  end
 end
