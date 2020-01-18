@@ -5,17 +5,22 @@ class Turn < Dry::Struct
   attribute :no, Types::Coercible::Integer
   attribute :fleet, Types::String
   attribute :ship_id, Types::Coercible::Integer
+  attribute :wind_bearing, Types::Coercible::String
+  attribute :wind_force, Types::Coercible::Integer
   attribute :created_at, Types::Params::DateTime
   attribute :finished, Types::Params::Bool
   attribute :actions, Types::String.optional
 
   def self.for(game_id, turn_no)
     ship = Ship.find_active(turn_no)
+    wind = Wind.generate
 
     new(no: turn_no,
         game_id: game_id,
         fleet: ship.fleet,
         ship_id: ship.id,
+        wind_bearing: wind.bearing,
+        wind_force: wind.force,
         created_at: DateTime.now,
         finished: false,
         actions: nil)

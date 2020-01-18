@@ -19,6 +19,9 @@ Style/LambdaCall:
 Style/ParallelAssignment:
   Enabled: false
 
+Metrics/MethodLength:
+  Max: 15
+
 AllCops:
   Exclude:
     - "spec/spec_helper.rb"
