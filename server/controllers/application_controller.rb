@@ -10,22 +10,21 @@ class ApplicationController < Sinatra::Base
 
   # Create new game
   post '/games' do
-    payload = JSON.parse request.body.read
+    payload = validate_with :new_game, JSON.parse(request.body.read)
 
-    fleet = payload['fleet']
-
-    unless Fleet.known? fleet
+    unless Fleet.known? payload[:fleet]
       raise ArgumentError, 'Unsupported fleet'
     end
 
-    game = GameRepo.create Game.for(fleet, Ship.random_spanish.id)
+    game = GameRepo.create Game.for(payload[:fleet], Ship.random_spanish.id)
 
     model_to_json game
   end
 
   # Add a new player to game (join)
-  post '/game/:game/player' do
-    game = GameRepo.find_open(params[:game])
+  post '/game/:id/player' do
+    pars = validate_with :id_lookup, params
+    game = GameRepo.find_open(pars[:id])
 
     raise Error, 'No such game' if game.nil?
 
@@ -38,26 +37,30 @@ class ApplicationController < Sinatra::Base
     model_to_json game
   end
 
-  ############
+  ###########
   # GamePlay
   ###########
 
   # Get details about a given game
   get '/game/:id' do
-    model_to_json GameRepo.find(params[:id])
+    pars = validate_with :id_lookup, params
+
+    model_to_json GameRepo.find(pars[:id])
   end
 
   # Get details about a given turn
-  get '/game/:id/turn/:turn_no' do
-    game_id, turn_no = params[:id], params[:turn_no].to_i
+  get '/game/:game_id/turn/:turn_no' do
+    pars = validate_with :turn_lookup, params
 
     begin
-      turn = TurnRepo.find(game_id, turn_no)
+      turn = TurnRepo.find(pars[:game_id], pars[:turn_no])
     rescue Repo::NotFoundError
-      logger.info("Turn ##{turn_no} not found for game #{game_id}")
+      logger.info("Turn ##{pars[:turn_no]} not found for #{pars[:game_id]}")
     end
 
-    model_to_json turn || TurnRepo.create(Turn.for(game_id, turn_no))
+    model_to_json turn || TurnRepo.create(Turn.for(pars[:game_id],
+                                                   pars[:turn_no]))
+  end
   end
 
   private

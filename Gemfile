@@ -5,7 +5,9 @@ gem 'sinatra-contrib'
 
 gem 'redis'
 
+gem 'dry-container'
 gem 'dry-struct'
+gem 'dry-schema'
 
 group :development do
   gem 'pry'

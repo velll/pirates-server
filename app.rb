@@ -14,8 +14,11 @@ require 'repositories/game_repo'
 require 'repositories/turn_repo'
 
 require 'models'
+require 'schemas'
 
 class ApplicationController < Sinatra::Base
+  include Schemable
+
   set :strict_paths, false
   set :show_exceptions, false
   set :logging, true
