@@ -11,6 +11,7 @@ require 'sinatra/config_file'
 
 require 'repositories/repo'
 require 'repositories/game_repo'
+require 'repositories/turn_repo'
 
 require 'models'
 

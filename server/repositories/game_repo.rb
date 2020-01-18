@@ -20,7 +20,7 @@ class GameRepo < Repo
     end
 
     def find_open(id)
-      raise NotFoundError unless connection.sismember('open_games', id)
+      raise Repo::NotFoundError unless connection.sismember('open_games', id)
 
       find(id)
     end

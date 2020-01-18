@@ -1,9 +1,9 @@
 require 'redis'
 
 class Repo
-  class << self
-    class NotFoundError < StandardError; end
+  class NotFoundError < StandardError; end
 
+  class << self
     # rubocop:disable Style/ClassVars
     def connect(conn)
       @@connection = conn

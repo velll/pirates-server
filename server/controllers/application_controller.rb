@@ -47,6 +47,20 @@ class ApplicationController < Sinatra::Base
   get '/game/:id' do
     model_to_json GameRepo.find(params[:id])
   end
+
+  # Get details about a given turn
+  get '/game/:id/turn/:turn_no' do
+    game_id, turn_no = params[:id], params[:turn_no].to_i
+
+    begin
+      turn = TurnRepo.find(game_id, turn_no)
+    rescue Repo::NotFoundError
+      logger.info("Turn ##{turn_no} not found for game #{game_id}")
+    end
+
+    model_to_json turn || TurnRepo.create(Turn.for(game_id, turn_no))
+  end
+
   private
 
   def model_to_json(model)
