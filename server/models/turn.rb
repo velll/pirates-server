@@ -2,7 +2,7 @@ class Turn < Dry::Struct
   transform_keys(&:to_sym)
 
   attribute :game_id, Types::String
-  attribute :no, Types::Coercible::String
+  attribute :no, Types::Coercible::Integer
   attribute :fleet, Types::String
   attribute :ship_id, Types::Coercible::Integer
   attribute :created_at, Types::Params::DateTime
