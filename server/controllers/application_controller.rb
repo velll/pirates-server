@@ -10,6 +10,8 @@ class ApplicationController < Sinatra::Base
 
   # Create new game
   post '/games' do
+    with_rewind { |body| logger.debug body }
+
     payload = validate_with :new_game, JSON.parse(request.body.read)
 
     unless Fleet.known? payload[:fleet]
@@ -65,6 +67,7 @@ class ApplicationController < Sinatra::Base
   # save actions
 
   post '/game/:game_id/turns/:turn_no/actions' do
+    with_rewind { |body| logger.info body }
     pars = validate_with :turn_lookup, params
 
     stored_turn = TurnRepo.find(pars[:game_id], pars[:turn_no])

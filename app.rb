@@ -13,11 +13,14 @@ require 'repositories/repo'
 require 'repositories/game_repo'
 require 'repositories/turn_repo'
 
+require 'lib/rewindable'
+
 require 'models'
 require 'schemas'
 
 class ApplicationController < Sinatra::Base
   include Schemable
+  include Rewindable
 
   set :strict_paths, false
   set :show_exceptions, false
