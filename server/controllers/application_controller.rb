@@ -61,6 +61,18 @@ class ApplicationController < Sinatra::Base
     model_to_json turn || TurnRepo.create(Turn.for(pars[:game_id],
                                                    pars[:turn_no]))
   end
+
+  # save actions
+
+  post '/game/:game_id/turns/:turn_no/actions' do
+    pars = validate_with :turn_lookup, params
+
+    stored_turn = TurnRepo.find(pars[:game_id], pars[:turn_no])
+
+    payload = request.body.read
+    turn = stored_turn.finalize(payload)
+
+    model_to_json TurnRepo.save(turn)
   end
 
   private
