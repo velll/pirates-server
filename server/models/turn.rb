@@ -9,7 +9,7 @@ class Turn < Dry::Struct
   attribute :wind_force, Types::Coercible::Integer
   attribute :created_at, Types::Params::DateTime
   attribute :finished, Types::Params::Bool
-  attribute :actions, Types::String.optional
+  attribute :actions, Types::String
 
   def self.for(game_id, turn_no)
     ship = Ship.find_active(turn_no)
@@ -23,7 +23,7 @@ class Turn < Dry::Struct
         wind_force: wind.force,
         created_at: DateTime.now,
         finished: false,
-        actions: nil)
+        actions: '[]')
   end
 
   def finalize(actions)
