@@ -25,6 +25,7 @@ Metrics/MethodLength:
 AllCops:
   Exclude:
     - "spec/spec_helper.rb"
+    - "unicorn.rb"
     - "Gemfile"
     - "Rakefile"
 
