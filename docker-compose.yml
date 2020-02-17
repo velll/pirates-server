@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  pirates-api:
+    image: pirates-server:latest
+    container_name: pirates-api
+    ports:
+      - 127.0.0.1:8003:8080
+    restart: always
+    depends_on:
+      - pirates-redis
+    environment:
+      - REDIS_HOST=pirates-redis
+      - REDIS_PORT=6379
+
+  pirates-redis:
+    image: redis
+    container_name: pirates-redis
+    # Exposed port will be available on
+    # local docker network anyway
+    ports: []
+    restart: always

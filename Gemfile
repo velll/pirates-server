@@ -9,8 +9,9 @@ gem 'dry-container'
 gem 'dry-struct'
 gem 'dry-schema'
 
+gem 'pry'
+
 group :development do
-  gem 'pry'
   gem 'rubocop'
   gem 'shotgun'
 end
