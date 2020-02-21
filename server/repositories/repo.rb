@@ -1,17 +1,18 @@
 require 'redis'
+require 'dry/container'
 
 class Repo
+  extend Dry::Container::Mixin
+
   class NotFoundError < StandardError; end
 
   class << self
-    # rubocop:disable Style/ClassVars
     def connect(conn)
-      @@connection = conn
+      register :connection, conn
     end
 
     def connection
-      @@connection
+      Repo.resolve :connection
     end
-    # rubocop:enable Style/ClassVars
   end
 end
