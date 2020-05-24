@@ -1,0 +1,23 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: build
+  image: ruby
+  commands:
+    - gem install bundler
+    - bundle
+    - rspec
+  environment:
+    LANG: "C.UTF-8"
+  when:
+    branch:
+    - master
+    status:
+    - success
+
+trigger:
+  branch:
+  - master
