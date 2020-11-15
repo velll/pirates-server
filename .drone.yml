@@ -17,6 +17,17 @@ steps:
     - master
     status:
     - success
+- name: deploy
+  image: docker/compose:1.27.4
+  commands:
+    - docker-compose build
+    - docker-compose down
+    - docker-compose up -d
+  volumes:
+    - name: dockersock
+      path: /var/run/docker.sock
+  depends_on:
+    - build
 
 trigger:
   branch:

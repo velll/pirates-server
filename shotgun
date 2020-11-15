@@ -1,2 +1,2 @@
-REDIS_HOST=127.0.0.1 REDIS_PORT=6479 bundle exec shotgun
+REDIS_HOST=127.0.0.1 REDIS_PORT=6479 bundle exec shotgun -p 8003
   
