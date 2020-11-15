@@ -24,7 +24,7 @@ class ApplicationController < Sinatra::Base
   end
 
   # Add a new player to game (join)
-  post '/game/:id/player' do
+  post '/games/:id/players' do
     pars = validate_with :id_lookup, params
     game = GameRepo.find_open(pars[:id])
 
@@ -44,14 +44,14 @@ class ApplicationController < Sinatra::Base
   ###########
 
   # Get details about a given game
-  get '/game/:id' do
+  get '/games/:id' do
     pars = validate_with :id_lookup, params
 
     model_to_json GameRepo.find(pars[:id])
   end
 
   # Get details about a given turn
-  get '/game/:game_id/turn/:turn_no' do
+  get '/games/:game_id/turns/:turn_no' do
     pars = validate_with :turn_lookup, params
 
     begin
@@ -66,7 +66,7 @@ class ApplicationController < Sinatra::Base
 
   # save actions
 
-  post '/game/:game_id/turns/:turn_no/actions' do
+  post '/games/:game_id/turns/:turn_no/actions' do
     with_rewind { |body| logger.info body }
     pars = validate_with :turn_lookup, params
 
