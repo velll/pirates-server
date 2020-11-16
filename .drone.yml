@@ -29,6 +29,11 @@ steps:
   depends_on:
     - build
 
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
 trigger:
   branch:
   - master
