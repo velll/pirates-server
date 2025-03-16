@@ -1,4 +1,4 @@
-FROM ruby:2.6.5
+FROM ruby:3.3.0
 
 EXPOSE 8080
 
